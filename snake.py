@@ -3,6 +3,7 @@ import pygame
 import sys
 import random
 from snakebrain import brain
+Uselessobject=0
 
 HEIGHT = 800
 WIDTH = 600
@@ -52,7 +53,7 @@ class Game:
         s_rect.midtop= (40,10)
         self.window.blit(s_surf, s_rect)
     def game_over(self):
-        time.sleep(60)
+        time.sleep(3)
         print('Score: ', score)
         pygame.quit()
         sys.exit()
