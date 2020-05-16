@@ -3,15 +3,25 @@ import pygame
 import sys
 import random
 from snakebrain import brain
-Uselessobject=0
+import pickle
 
 HEIGHT = 800
 WIDTH = 600
-
 Traectory ='RIGHT'
-pygame.init()
-clock = pygame.time.Clock()
+
+record=0
+
 score=0
+
+
+recordfile = open('C:\PycharmProject\project\snake\snakescore', 'rb')
+record = pickle.load(recordfile)
+
+
+
+
+
+pygame.init()
 class Game:
     def __init__(self):
         self.white = pygame.Color(255, 255, 255)
@@ -48,9 +58,9 @@ class Game:
     def show_score(self,score):
         #show a score
         s_font=  pygame.font.SysFont('Arial',16)#Font score
-        s_surf= s_font.render('Score: {0}'.format(score), True, self.black)#create score tab
+        s_surf= s_font.render('Score: {0} Record: {1}'.format(score,record), True, self.black)#create score tab
         s_rect = s_surf.get_rect()
-        s_rect.midtop= (40,10)
+        s_rect.midtop= (100,10)
         self.window.blit(s_surf, s_rect)
     def game_over(self):
         time.sleep(3)
@@ -118,6 +128,7 @@ class Food():
 def main():
     global score
     global Traectory
+    global record
     snake = Snake()
     game = Game()
     food = Food()
@@ -145,11 +156,17 @@ def main():
         print('Traectory: ', Traectory)
         print('FoodPos: ', new_food_pos)
 
+        if score > record:
+            record = score
+            recordfile = open('C:\PycharmProject\project\snake\snakescore', 'wb')
+            pickle.dump(record, recordfile)
+            recordfile.close()
 
     pygame.quit()
 
 main()
 print('Score: ', score)
+print('Record: ',record)
 
 
 
