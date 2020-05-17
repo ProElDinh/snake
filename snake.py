@@ -14,8 +14,11 @@ record=0
 score=0
 
 
-recordfile = open('C:\PycharmProject\project\snake\snakescore', 'rb')
-record = pickle.load(recordfile)
+recordfile = open('snakescore', 'rb')
+try:
+    record = pickle.load(recordfile)
+except:
+    pass
 
 
 
@@ -158,7 +161,7 @@ def main():
 
         if score > record:
             record = score
-            recordfile = open('C:\PycharmProject\project\snake\snakescore', 'wb')
+            recordfile = open('snakescore', 'wb')
             pickle.dump(record, recordfile)
             recordfile.close()
 
