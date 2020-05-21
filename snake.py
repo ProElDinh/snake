@@ -3,7 +3,7 @@ import pygame
 import sys
 import random
 from snakebrain import brain
-import pickle
+import shelve
 
 HEIGHT = 800
 WIDTH = 600
@@ -13,10 +13,12 @@ record=0
 
 score=0
 
+filename= 'snakescore'
 
-recordfile = open('snakescore', 'rb')
 try:
-    record = pickle.load(recordfile)
+    recordfile = shelve.open(filename)
+    record = recordfile['record']
+    recordfile.close()
 except:
     pass
 
@@ -161,8 +163,8 @@ def main():
 
         if score > record:
             record = score
-            recordfile = open('snakescore', 'wb')
-            pickle.dump(record, recordfile)
+            recordfile = shelve.open(filename)
+            recordfile['record'] = record
             recordfile.close()
 
     pygame.quit()

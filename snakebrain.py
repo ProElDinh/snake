@@ -9,12 +9,16 @@ def brain(head_pos,food_pos,Traectory,body_pos):
     wall_pos=[40,580,780,0]
     if snakebody(head_pos,body_pos,Traectory)!=None:
         Trac= snakebody(head_pos, body_pos,Traectory)
+        print(1)
 
     elif (head_pos[0] in wall_pos and head_pos[1]!=food_pos[1]) or (head_pos[1] in wall_pos and head_pos[0]!=food_pos[0]):
         Trac = corners(head_pos,Traectory,food_pos)
+        print(2)
     else:
         Trac = run_to_food(head_pos,food_pos,Traectory,body_pos)
+        print(3)
     return Trac
+
 #Snake go to food if not corners
 def run_to_food(head_pos,food_pos,Traectory,body_pos):
     Trac=None
