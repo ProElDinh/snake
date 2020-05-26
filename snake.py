@@ -15,16 +15,11 @@ score=0
 
 filename= 'snakescore'
 
-try:
-    recordfile = shelve.open(filename)
-    record = recordfile['record']
-    recordfile.close()
-except:
-    pass
-
-
-
-
+with shelve.open(filename) as recordfile:
+    try:
+        record = recordfile['record']
+    except:
+        pass
 
 pygame.init()
 class Game:
@@ -163,9 +158,8 @@ def main():
 
         if score > record:
             record = score
-            recordfile = shelve.open(filename)
-            recordfile['record'] = record
-            recordfile.close()
+            with shelve.open(filename) as recordfile:
+                recordfile['record'] = record
 
     pygame.quit()
 
